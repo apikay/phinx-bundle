@@ -75,6 +75,13 @@ EOT
         }
 
         // print the status
-        return $this->getManager()->printStatus('default', $format);
+        $stat = $this->getManager()->printStatus('default', $format);
+        if ($stat["hasMissingMigration"]) {
+            $output->writeln("Has missing migrations.");
+        }
+        if ($stat["hasDownMigration"]) {
+            $output->writeln("Has down migrations.");
+        }
+        return 0;
     }
 }
